@@ -1,10 +1,14 @@
 package com.example.jetpackcomposetutorial
 
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -12,6 +16,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.jetpackcomposetutorial.ui.theme.JetpackComposeTutorialTheme
@@ -77,6 +83,9 @@ class MainActivity : ComponentActivity() {
                     -> SpaceBetween: creates maximum space possible between components
                     -> SpaceAround: gives each components the same space but other components half space of the middle components
                     -> Modifier.fillMaxSize() : same as match parent, makes the component fit to screen size
+                    -> Offset: it is same as margin but it does not shift other components along with it.
+                        Only the component that has the offset gets shifted to the specified margins
+                    -> Spacer: inserts an empty composable spacing between components
                  */
 
                 Column() {
@@ -119,15 +128,24 @@ class MainActivity : ComponentActivity() {
                     Text(text = "Hello")
                 }
 
-                Column(modifier = Modifier.background(Color.Green)
+                Column(modifier = Modifier
+                    .background(Color.Green)
                     .fillMaxHeight(0.5f)
                     .width(300.dp)
-                    .padding(20.dp),
-                    verticalArrangement = Arrangement.SpaceEvenly
+                    .border(5.dp, Color.Black)
+                    .padding(5.dp)
+                    .border(5.dp, Color.Blue)
+                    .padding(5.dp)
+                    .border(5.dp, Color.Red)
+                    .padding(10.dp)
+//                    .border(3.dp,Color.Black, RectangleShape)
 //                    .requiredWidth(300.dp)
                 ) {
-                    Text(text = "New Column1", modifier = Modifier.offset())
-                    Text(text = "New Column2")
+//                    Text(text = "New Column1", modifier = Modifier.offset(0.dp,16.dp))
+                        Spacer(modifier = Modifier.height(20.dp))
+                        Text(text = "New Column1", modifier = Modifier.clickable {})
+                        Spacer(modifier = Modifier.height(50.dp))
+                        Text(text = "New Column2")
                 }
 
             }
