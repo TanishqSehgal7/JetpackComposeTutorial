@@ -1,25 +1,31 @@
 package com.example.jetpackcomposetutorial
 
+import android.nfc.cardemulation.CardEmulation
 import android.os.Bundle
 import android.widget.Button
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.jetpackcomposetutorial.ui.theme.JetpackComposeTutorialTheme
 
 
@@ -148,8 +154,56 @@ class MainActivity : ComponentActivity() {
                         Text(text = "New Column2")
                 }
 
+                val painter = painterResource(id = R.drawable.aj1)
+                val description = "Air Jordan 1 X OFFWhite Chicago"
+                val title = "Air Jordan 1"
+                Box(modifier = Modifier
+                    .fillMaxWidth(0.5f)
+                    .padding(16.dp)) {
+                    ImageCard(painter = painter, contentDesc = description, title = title)
+                }
+
             }
         }
+    }
+}
+
+/* naming convention for composable functions: function name starts with
+capital letter
+
+Box: used when we need to stack composable components on top of each other
+
+* */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ImageCard(painter: Painter,
+ contentDesc:String,
+ title:String,
+ modifier: Modifier = Modifier) {
+
+    Card(modifier = modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(15.dp)) {
+
+        Box(modifier = Modifier.height(200.dp)) {
+
+            Image(painter = painter, contentDescription = contentDesc, contentScale = ContentScale.Fit, alignment = Alignment.Center)
+            // ContentScale.Crop is similar to centercrop in XML
+            // putting the text inside another box in order to align at the bottom
+
+            // put gradient in card
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(brush = Brush.verticalGradient(colors = listOf(Color.Transparent, Color.Black), startY = 300f))
+            )
+
+            Box(modifier = Modifier
+                .fillMaxSize()
+                .padding(12.dp), contentAlignment = Alignment.BottomCenter) {
+                 Text(text = title, style = TextStyle(color = Color.White, fontSize = 12.sp))
+            }
+        }
+        
     }
 }
 
